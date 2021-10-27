@@ -22,15 +22,16 @@
                             :src="image"/>
                     </div>
                     <div class="product-info">
-                        <h1>{{product}}</h1>
+                        <!--call computed property-->
+                        <h1>{{title}}</h1>
                         <p>We have new : {{description}} show more: <a :href="url">More information</a> </p>
                         <!--show is visibility-->
                         <!--conditional logic-->
-                        <p v-if="inventory > 10">In stock</p>
+                        <p v-if="inStock">In stock</p>
                         <p v-else-if="inventory <=10 && inventory > 0">Almost sold out!</p>
                         <p v-else>Out of stock</p>
                         <h2>Sales:</h2>
-                        <p v-if="onSale">On sale</p>
+                        <p v-if="onSale">{{saleMessage}}</p>
                         <p v-else>Not on sale</p>
                         <h2>About this product:</h2>
                         <ul>
@@ -42,9 +43,9 @@
                         <!--@mouseover which is the view version of hover-->
                         <h2>Chose color:</h2>
                         <div 
-                            v-for="variant in variants" 
+                            v-for="(variant,index) in variants" 
                             :key="variant.id" 
-                            @mouseover="updateImage(variant.image)"
+                            @mouseover="updateVariant(index)"
                             class="color-circle"
                             :style="{backgroundColor: variant.color}">
                         </div>
@@ -56,12 +57,17 @@
                             and in the expresion this is the logic that we're triggering that event happens-->
                         <!-- :class first parameter is class name, second is condition from data(js)-->
                             <button 
-                            class="button" 
-                            @click="addToCart"
-                            :disabled="!inStock"
-                            :class="{disabledButton:!inStock}">
-                        {{buttonAdd}}</button>
-                        <button class="button" @click="outOfCart">{{buttonCancel}}</button>
+                                class="button" 
+                                @click="addToCart"
+                                :disabled="!inStock"
+                                :class="{disabledButton:!inStock}">
+                                {{buttonAdd}}
+                            </button>
+                            <button 
+                                class="button" 
+                                @click="outOfCart">
+                                {{buttonCancel}}
+                            </button>
                     </div>
                 </div>
             </div>
