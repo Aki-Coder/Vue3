@@ -8,7 +8,7 @@ const app = Vue.createApp({
             description:'Soft socks',
             image:'./assets/images/socks_green.jpg',
             url:'https://codepen.io/VueMastery/project/editor/AqemLM',
-            inStock:fa,
+            inStock:false,
             inventory:10,
             onSale:true,
             details:['50% cotton', '30% wool', '20% polyester'],
