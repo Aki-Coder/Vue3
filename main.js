@@ -8,7 +8,7 @@ const app = Vue.createApp({
             description:'Soft socks',
             image:'./assets/images/socks_green.jpg',
             url:'https://codepen.io/VueMastery/project/editor/AqemLM',
-            inStock:true,
+            inStock:fa,
             inventory:10,
             onSale:true,
             details:['50% cotton', '30% wool', '20% polyester'],
@@ -27,6 +27,8 @@ const app = Vue.createApp({
             this.cart +=1;
         },
         outOfCart(){
+            if(this.cart <=0)
+                return false;
             this.cart -=1;
         },
         updateImage(variantImage){
