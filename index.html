@@ -17,7 +17,9 @@
                     <div class="product-image">
                         <!--Image goes here-->
                         <!-- v-bind directive - works: dynamically bind an attribute(src) to an expression("image")-->
-                        <img v-bind:src="image">
+                        <img
+                            :class="{'out-of-stock-img':!inStock}"
+                            :src="image"/>
                     </div>
                     <div class="product-info">
                         <h1>{{product}}</h1>
@@ -38,19 +40,31 @@
                         <!--key attribute-->
                         <!-- :key="variant.id" this gives each dom element a unique key (useful:animating elements)-->
                         <!--@mouseover which is the view version of hover-->
-                        <div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)">Color in stock:{{variant.color}}</div>
+                        <h2>Chose color:</h2>
+                        <div 
+                            v-for="variant in variants" 
+                            :key="variant.id" 
+                            @mouseover="updateImage(variant.image)"
+                            class="color-circle"
+                            :style="{backgroundColor: variant.color}">
+                        </div>
                         <h2>Sizes:</h2>
                         <ul>
                             <li v-for="size in sizes">{{size}}</li>
                         </ul>
                         <!--on v-on directive add argument that specifies the event we're listening
                             and in the expresion this is the logic that we're triggering that event happens-->
-                        <button class="button" @click="addToCart">{{buttonAdd}}</button>
+                        <!-- :class first parameter is class name, second is condition from data(js)-->
+                            <button 
+                            class="button" 
+                            @click="addToCart"
+                            :disabled="!inStock"
+                            :class="{disabledButton:!inStock}">
+                        {{buttonAdd}}</button>
                         <button class="button" @click="outOfCart">{{buttonCancel}}</button>
                     </div>
                 </div>
             </div>
-          
         </div>
         <!--Import App (importing an entire Vue app)-->
         <script src="./main.js"></script>
