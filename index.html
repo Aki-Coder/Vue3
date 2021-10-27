@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Vue Mastery</title>
+       <!--Import Styles-->
+        <link rel="stylesheet" href="./assets/styles.css"/>
+        <!--Import Vue.js-->
+        <script src="https://unpkg.com/vue@3.0.0-beta.12/dist/vue.global.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <div class="nav-bar"></div>
+            <div class="product-display">
+                <div class="product-container">
+                    <div class="product-image">
+                        <!--Image goes here-->
+                        <!-- v-bind directive - works: dynamically bind an attribute(src) to an expression("image")-->
+                        <img v-bind:src="image">
+                    </div>
+                    <div class="product-info">
+                        <h1>{{product}}</h1>
+                        <p>We have new : {{description}} show more: <a :href="url">More information</a> </p>
+                        <!--show is visibility-->
+                        <!--conditional logic-->
+                        <p v-if="inventory > 10">In stock</p>
+                        <p v-else-if="inventory <=10 && inventory > 0">Almost sold out!</p>
+                        <p v-else>Out of stock</p>
+                        <h2>Sales:</h2>
+                        <p v-if="onSale">On sale</p>
+                        <p v-else>Not on sale</p>
+                        <h2>About this product:</h2>
+                        <ul>
+                            <!--expresion we're specifying what we want to loop over(collection that we're iterating over)-->
+                            <li v-for="detail in details">{{detail}}</li>
+                        </ul>
+                        <!--key attribute-->
+                        <!-- :key="variant.id" this gives each dom element a unique key (useful:animating elements)-->
+                        <div v-for="variant in variants" :key="variant.id">Color in stock:{{variant.color}}</div>
+                        <h2>Sizes:</h2>
+                        <ul>
+                            <li v-for="size in sizes">{{size}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+        <!--Import App (importing an entire Vue app)-->
+        <script src="./main.js"></script>
+        <!--Mount App-->
+        <!-- app: that refers to the app that we just imported 
+             mount: add argumet witch is a DOM selector used to plug the app-->
+        <script>
+            const mountedApp = app.mount('#app');
+        </script>
+    </body>
+</html>
