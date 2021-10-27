@@ -11,6 +11,7 @@
     <body>
         <div id="app">
             <div class="nav-bar"></div>
+            <div class="cart">Cart({{cart}})</div>
             <div class="product-display">
                 <div class="product-container">
                     <div class="product-image">
@@ -36,11 +37,16 @@
                         </ul>
                         <!--key attribute-->
                         <!-- :key="variant.id" this gives each dom element a unique key (useful:animating elements)-->
-                        <div v-for="variant in variants" :key="variant.id">Color in stock:{{variant.color}}</div>
+                        <!--@mouseover which is the view version of hover-->
+                        <div v-for="variant in variants" :key="variant.id" @mouseover="updateImage(variant.image)">Color in stock:{{variant.color}}</div>
                         <h2>Sizes:</h2>
                         <ul>
                             <li v-for="size in sizes">{{size}}</li>
                         </ul>
+                        <!--on v-on directive add argument that specifies the event we're listening
+                            and in the expresion this is the logic that we're triggering that event happens-->
+                        <button class="button" @click="addToCart">{{buttonAdd}}</button>
+                        <button class="button" @click="outOfCart">{{buttonCancel}}</button>
                     </div>
                 </div>
             </div>
