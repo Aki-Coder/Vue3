@@ -70,6 +70,15 @@ app.component('product-display',{
                 </button>
         </div>
     </div>
+    
+    <review-list 
+        v-if="reviews.length" 
+        :reviews="reviews">
+    </review-list>
+    <!--when the event happens, we'll trigger a new method-->
+    <review-form 
+        @review-submitted="addReview">
+    </review-form>
 </div>`,
 
 data(){
@@ -92,6 +101,7 @@ data(){
         buttonAdd:'Add to Cart',
         buttonCancel:'Out of Cart',
         onSale:true,
+        reviews:[],
     }
 },
 methods:{
@@ -110,6 +120,10 @@ methods:{
     },
     updateVariant(index){
         this.selectedVariant = index;
+    },
+    //takes in the review that we got from the review-submitted event payload
+    addReview(review){
+        this.reviews.push(review);
     },
 },
 /* Calculated value for us (Computed property)
