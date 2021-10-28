@@ -12,68 +12,16 @@
         <div id="app">
             <div class="nav-bar"></div>
             <div class="cart">Cart({{cart}})</div>
-            <div class="product-display">
-                <div class="product-container">
-                    <div class="product-image">
-                        <!--Image goes here-->
-                        <!-- v-bind directive - works: dynamically bind an attribute(src) to an expression("image")-->
-                        <img
-                            :class="{'out-of-stock-img':!inStock}"
-                            :src="image"/>
-                    </div>
-                    <div class="product-info">
-                        <!--call computed property-->
-                        <h1>{{title}}</h1>
-                        <p>We have new : {{description}} show more: <a :href="url">More information</a> </p>
-                        <!--show is visibility-->
-                        <!--conditional logic-->
-                        <p v-if="inStock">In stock</p>
-                        <p v-else-if="inventory <=10 && inventory > 0">Almost sold out!</p>
-                        <p v-else>Out of stock</p>
-                        <h2>Sales:</h2>
-                        <p v-if="onSale">{{saleMessage}}</p>
-                        <p v-else>Not on sale</p>
-                        <h2>About this product:</h2>
-                        <ul>
-                            <!--expresion we're specifying what we want to loop over(collection that we're iterating over)-->
-                            <li v-for="detail in details">{{detail}}</li>
-                        </ul>
-                        <!--key attribute-->
-                        <!-- :key="variant.id" this gives each dom element a unique key (useful:animating elements)-->
-                        <!--@mouseover which is the view version of hover-->
-                        <h2>Chose color:</h2>
-                        <div 
-                            v-for="(variant,index) in variants" 
-                            :key="variant.id" 
-                            @mouseover="updateVariant(index)"
-                            class="color-circle"
-                            :style="{backgroundColor: variant.color}">
-                        </div>
-                        <h2>Sizes:</h2>
-                        <ul>
-                            <li v-for="size in sizes">{{size}}</li>
-                        </ul>
-                        <!--on v-on directive add argument that specifies the event we're listening
-                            and in the expresion this is the logic that we're triggering that event happens-->
-                        <!-- :class first parameter is class name, second is condition from data(js)-->
-                            <button 
-                                class="button" 
-                                @click="addToCart"
-                                :disabled="!inStock"
-                                :class="{disabledButton:!inStock}">
-                                {{buttonAdd}}
-                            </button>
-                            <button 
-                                class="button" 
-                                @click="outOfCart">
-                                {{buttonCancel}}
-                            </button>
-                    </div>
-                </div>
-            </div>
+            <!--Use compopnent via template-->
+            <!--premimu that lives in main.js-->
+            <!--Now that we’ve configured this, we can add that custom attribute onto the product-display component where we’re using it.-->
+            <product-display :premium="premium"></product-display>
         </div>
         <!--Import App (importing an entire Vue app)-->
         <script src="./main.js"></script>
+        <!--Import Component-->
+        <script src="./components/ProductDisplay.js"></script>
+        <script src="./components/ProductDetails.js"></script>
         <!--Mount App-->
         <!-- app: that refers to the app that we just imported 
              mount: add argumet witch is a DOM selector used to plug the app-->
