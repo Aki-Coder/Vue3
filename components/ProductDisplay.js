@@ -55,15 +55,17 @@ app.component('product-display',{
                 and in the expresion this is the logic that we're triggering that event happens-->
             <!-- :class first parameter is class name, second is condition from data(js)-->
                 <button 
-                    class="button" 
-                    @click="addToCart"
+                    class="button"
+                    :class="{disabledButton:!inStock}" 
                     :disabled="!inStock"
-                    :class="{disabledButton:!inStock}">
+                    @click="addToCart">
                     {{buttonAdd}}
                 </button>
                 <button 
                     class="button" 
-                    @click="outOfCart">
+                    :class={disabledButton:!inStock}
+                    :disbled="!inStock"
+                    @click="removeFromCart">
                     {{buttonCancel}}
                 </button>
         </div>
@@ -94,12 +96,14 @@ data(){
 },
 methods:{
     addToCart(){
-        this.cart +=1;
+        //we dont have cart here
+        //this.cart +=1;
+        //so, we're emitting or bubbling up that event
+        //second parameter is payload
+        this.$emit('add-to-cart', this.variants[this.selectedVariant].id);
     },
-    outOfCart(){
-        if(this.cart <=0)
-            return false;
-        this.cart -=1;
+    removeFromCart(){
+        this.$emit('remove-from-cart', this.variants[this.selectedVariant].id);
     },
     updateImage(variantImage){
         this.image = variantImage;

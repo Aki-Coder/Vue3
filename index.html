@@ -11,11 +11,15 @@
     <body>
         <div id="app">
             <div class="nav-bar"></div>
-            <div class="cart">Cart({{cart}})</div>
+            <div class="cart">Cart({{cart.length}})</div>
             <!--Use compopnent via template-->
             <!--premimu that lives in main.js-->
             <!--Now that we’ve configured this, we can add that custom attribute onto the product-display component where we’re using it.-->
-            <product-display :premium="premium"></product-display>
+            <!--cal event and call updateCart which lives withinh main.js-->
+            <product-display 
+                :premium="premium" 
+                @add-to-cart="updateCart" 
+                @remove-from-cart="removeById"></product-display>
         </div>
         <!--Import App (importing an entire Vue app)-->
         <script src="./main.js"></script>

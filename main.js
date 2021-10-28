@@ -4,10 +4,22 @@
 const app = Vue.createApp({
     data(){
         return{
-            cart:0,
+            cart:[],
             //our product-display component needs access to this data
             premium:true
         }
     },
-    methods:{ }
+    methods:{ 
+        updateCart(id){
+            this.cart.push(id);
+        },
+        removeById(id){
+            //indexOf returns the first index at which a given element can be found in the array
+            const index = this.cart.indexOf(id);
+            if(index > -1){
+                /*The splice() method changes the contents of an array by removing or replacing existing elements and/or adding new elements in place.*/
+                this.cart.splice(index,1);
+            }
+        }
+    }
 }) 
